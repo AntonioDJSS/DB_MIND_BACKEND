@@ -326,7 +326,7 @@ const confirmar = async (req, res = response) => {
             ex.message,
             []).responseApiError();
 
-        res.status(400).json(
+        return res.status(400).json( // Cambiado de res.status a return res.status
             response
         );
     }
@@ -338,17 +338,16 @@ const confirmar = async (req, res = response) => {
             'No existe el usuario para confirmar tu cuenta',
             []).responseApiError();
 
-        res.status(403).json(
+        return res.status(403).json( // Cambiado de res.status a return res.status
             response
-        )
-
+        );
     }
 
     try {
         usuarioConfirmar.estado = true;
         usuarioConfirmar.token = "";
         await usuarioConfirmar.save();
-        res.status(200).json({
+        return res.status(200).json({ // Cambiado de res.status a return res.status
             status: 'successful',
             message: "Usuario Confirmado Correctamente "
         });
@@ -359,11 +358,12 @@ const confirmar = async (req, res = response) => {
             ex.message,
             []).responseApiError();
 
-        res.status(500).json(
+        return res.status(500).json( // Cambiado de res.status a return res.status
             response
-        )
+        );
     }
 }
+
 
 const olvidePassword = async (req, res = response) => {
     const { correo } = req.body;

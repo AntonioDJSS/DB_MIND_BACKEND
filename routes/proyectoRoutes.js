@@ -17,7 +17,7 @@ const router = Router();
 //RUTAS PARA TODOS
 router.post('/',[
     protect,
-    tieneRole('ADMIN_ROLE', 'USER_ROLE'),
+    // tieneRole('ADMIN_ROLE', 'USER_ROLE'),
 ], crearProyecto )
 
 //USER
@@ -44,15 +44,15 @@ router.get('',[
 ] ,mostrarProyectos )
 
 router.put('/:id',[
-    protect,
-    tieneRole('ADMIN_ROLE', 'USER_ROLE'),
-    esAdminRole,
+    //protect,
+    //tieneRole('ADMIN_ROLE', 'USER_ROLE'),
+    //esAdminRole,
 ], actualizarProyectos )
 
 router.delete('/:id',[
-    protect,
-    tieneRole('ADMIN_ROLE', 'USER_ROLE'),
-    esAdminRole
+    //protect,
+    //tieneRole('ADMIN_ROLE', 'USER_ROLE'),
+    //esAdminRole
 ], borrarProyectos )
 
 

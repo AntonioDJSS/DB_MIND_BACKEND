@@ -22,7 +22,6 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { protect } = require ('../middlewares/auth-validar');
 const {  tieneRole } = require('../middlewares/validar-roles');
 
-
 const router = Router();
 
 //Es enviar

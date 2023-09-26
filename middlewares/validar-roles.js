@@ -15,7 +15,7 @@ const esAdminRole = ( req, res = response, next) => {
     }
 
     const { rol, nombre } = req.usuario;
-
+    console.log(req.usuario)
     if ( rol !== 'ADMIN_ROLE') {
         const response = new ResponseError(
             'fail',

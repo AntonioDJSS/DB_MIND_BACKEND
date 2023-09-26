@@ -31,15 +31,13 @@ const protect = async ( req, res, next) =>{
     }
     console.log(token)
 
-    
-    
     try {
       //2) Verificar si el token es válido
       const decoded = await promisify(jwt.verify)(token, process.env.SECRETORPRIVATEKEY);
     
       //3) Verificar si el usuario existe
       const usuario = await Usuario.findById(decoded.uid)
-    
+      console.log(usuario)
       if (!usuario) {
         const response = new ResponseError(
           'fail',

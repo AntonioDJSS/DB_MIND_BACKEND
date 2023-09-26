@@ -11,6 +11,7 @@ const crearProyecto = async (req, res) => {
 
   const { idt, nombre, descripcion, empresa, fechainicio, fechafin, estado } = req.body;
   const usuario = req.usuario;
+  console.log(usuario)
 
   if (!usuario) {
     // Manejo de error cuando no se encuentra el usuario
@@ -87,7 +88,7 @@ const crearProyecto = async (req, res) => {
         response
       )
     }
-
+    console.log(estado)
     if (!estado) {
       const response = new ResponseError(
         'fail',
