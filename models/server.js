@@ -14,6 +14,10 @@ class Server {
         this.proyectoPath = '/api/proyecto';
         this.pdfPath = '/api/pdf';
         this.recomendacionPath = '/api/recomendacion';
+        this.cursoPath ='/api/curso'
+        this.usuarioDBPath = "/api/usuariodb"
+        this.evaluacionPath = "/api/evaluacion"
+        this.respuestaPath = "/api/respuesta"
 
         // Conectar a base de datos
         this.conectarDB();
@@ -72,7 +76,11 @@ class Server {
         this.app.use(this.tramiteControllerPath, require('../routes/tramiteRoutes'));
         this.app.use(this.proyectoPath, require('../routes/proyectoRoutes'));
         this.app.use(this.pdfPath, require('../routes/pdfRoutes.js'));
-        this.app.use(this.recomendacionPath, require('../routes/recomendacionRoutes'))
+        this.app.use(this.recomendacionPath, require('../routes/recomendacionRoutes'));
+        this.app.use(this.cursoPath, require('../routes/cursoRoutes'))
+        this.app.use(this.usuarioDBPath, require('../routes/usuarioDBRoutes'))
+        this.app.use(this.evaluacionPath, require('../routes/evaluacionRoutes'))
+        this.app.use(this.respuestaPath, require('../routes/respuestaRoutes.js'))
 
 
         // Middleware para manejar rutas no reconocidas

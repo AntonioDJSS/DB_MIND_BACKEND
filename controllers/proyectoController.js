@@ -3,8 +3,6 @@ const Proyecto = require('../models/proyecto');
 const mongoose = require('mongoose');
 const Usuario = require('../models/usuario')
 
-
-
 const crearProyecto = async (req, res) => {
 
   let usuarioExiste = null;

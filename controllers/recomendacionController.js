@@ -2,7 +2,7 @@ const Recomendacion = require("../models/recomendacion");
 
 const createCategory = async (req, res) => {
   const { categoria } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   // Prevenimos categorias duplicadas
   const categoriaExistente = await Recomendacion.findOne({ categoria });
