@@ -35,7 +35,7 @@ class Server {
 
     // Middleware de CORS y otros middlewares
     middlewares() {
-        const whitelist = ["https://dbminds.netlify.app"];
+        const whitelist = ["https://dbmind.online"];
 
         const corsOptions = {
             origin: function (origin, callback) {
