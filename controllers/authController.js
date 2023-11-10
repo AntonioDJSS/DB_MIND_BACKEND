@@ -34,6 +34,8 @@ const createSendToken = async (usuario, statusCode, req, res) => {
     };
     // Configura la cookie
     res.cookie('jwt', token, cookieOptions);
+    
+    
 
     res.status(statusCode).json({
         status: "successful",
@@ -282,7 +284,7 @@ const registrar = async (req, res) => {
     }
 
     
-    emailRegistro({
+    emailRegistroP({
         correo: usuario.correo,
         nombre: usuario.nombre,
         token: usuario.token,
@@ -304,6 +306,9 @@ const cerrarSesion = async (req, res) => {
         secure: true,
         sameSite: 'none',
     });
+
+    
+    
     res.status(200).json({
         status: 'successful',
         message: 'Cerrando Sesion Correctamente'
@@ -312,42 +317,26 @@ const cerrarSesion = async (req, res) => {
 }
 
 const confirmar = async (req, res = response) => {
-
     const { token } = req.params;
 
-    let usuarioConfirmar = null;
-
     try {
-        usuarioConfirmar = await Usuario.findOne({ token });
-    } catch (ex) {
-        const response = new ResponseError(
-            'fail',
-            'Error al encontrar tu usuario',
-            ex.message,
-            []).responseApiError();
+        const usuarioConfirmar = await Usuario.findOne({ token });
 
-        return res.status(400).json( // Cambiado de res.status a return res.status
-            response
-        );
-    }
+        if (!usuarioConfirmar) {
+            const response = new ResponseError(
+                'fail',
+                'Token no valido',
+                'No existe el usuario para confirmar tu cuenta',
+                []
+            ).responseApiError();
 
-    if (!usuarioConfirmar) {
-        const response = new ResponseError(
-            'fail',
-            'Token no valido',
-            'No existe el usuario para confirmar tu cuenta',
-            []).responseApiError();
+            return res.status(403).json(response); // Return here to prevent further execution
+        }
 
-        return res.status(403).json( // Cambiado de res.status a return res.status
-            response
-        );
-    }
-
-    try {
         usuarioConfirmar.estado = true;
         usuarioConfirmar.token = "";
         await usuarioConfirmar.save();
-        return res.status(200).json({ // Cambiado de res.status a return res.status
+        res.status(200).json({
             status: 'successful',
             message: "Usuario Confirmado Correctamente "
         });
@@ -356,14 +345,12 @@ const confirmar = async (req, res = response) => {
             'fail',
             'No se pudo confirmar el Usuario',
             ex.message,
-            []).responseApiError();
+            []
+        ).responseApiError();
 
-        return res.status(500).json( // Cambiado de res.status a return res.status
-            response
-        );
+        res.status(500).json(response);
     }
 }
-
 
 const olvidePassword = async (req, res = response) => {
     const { correo } = req.body;
@@ -426,7 +413,7 @@ const olvidePassword = async (req, res = response) => {
     try {
         await usuario.save();
         //enviar email
-        emailOlvidePassword({
+        emailOlvidePasswordP({
             correo: usuario.correo,
             nombre: usuario.nombre,
             token: usuario.token,
